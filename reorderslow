@@ -1,0 +1,75 @@
+import java.util.*;
+
+public class reorder
+{
+	public static void main(String[] args) 
+	{
+		ListNode head = new ListNode(0);
+		ListNode itr = head;
+		for(int i = 1; i < 100; i++)
+		{
+			ListNode temp = new ListNode(i);
+			itr.next = temp;
+			itr = temp; 
+		}
+
+		ListNode iterator = head;
+		while(iterator != null)
+		{
+			System.out.println(""+iterator.val);
+			iterator = iterator.next;
+		}
+
+		reorder(head);
+		System.out.println();
+		System.out.println();
+
+		iterator = head;
+		while(iterator != null)
+		{
+			System.out.println(""+iterator.val);
+			iterator = iterator.next;
+		}
+	}
+
+
+	public static void reorder(ListNode head)
+	{
+		if(head == null)
+        return;
+        
+        if(head.next == null)
+        return;
+        
+        if((head.next).next == null)
+        return;
+        
+        ListNode iterator = head;
+        ListNode runner = head;
+        ListNode nend;
+        ListNode end;
+        while(iterator.next != null)
+        {
+            if((iterator.next).next == null)
+            break;
+            
+            runner = iterator.next;
+            // reach the end, nend is the second end
+            nend = iterator;
+            end = iterator;
+            while((nend.next).next != null)
+            {
+                nend = nend.next;
+            }
+            end = nend.next;
+            
+            iterator.next = end;
+            end.next = runner;
+            nend.next = null;
+            
+            iterator = runner;
+        }
+
+        return;
+	}
+}

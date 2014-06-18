@@ -1,0 +1,92 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        
+        if(head == null)
+            return head;
+        if(head.next == null)
+            return head;
+
+        ListNode fast = head.next;
+        ListNode slow = head;
+        ListNode min, bmin;
+        
+        if(fast.val < slow.val)
+        {
+            slow.next = fast.next;
+            fast.next = slow;
+            head = fast;
+        }
+        
+        slow = head;
+        fast = head.next;
+        bmin = slow;
+        min = fast;
+        
+        while(fast != null)
+        {
+            if(fast.val < min.val)
+            {
+                min = fast;
+                bmin = slow;
+            }
+            fast = fast.next;
+            slow = slow.next;
+        }
+        
+        if(min.val < head.val)
+        {
+            bmin.next = min.next;
+            min.next = head;
+            head = min;
+        }
+        
+        ListNode p1 = head;
+        ListNode p2 = head.next;
+        
+        while(p2 != null)
+        {
+            slow = p1;
+            fast = p2;
+            min = fast;
+            bmin = slow;
+            
+            while(fast != null)
+            {
+                if(fast.val < min.val)
+                {
+                    min = fast;
+                    bmin = slow;
+                }
+                fast = fast.next;
+                slow = slow.next;
+            }
+            
+            if(min != p2)
+            {
+                bmin.next = min.next;
+                p1.next = min;
+                min.next = p2;
+                p1 = min;
+            }
+            else
+            {
+                p1 = p2;
+                p2 = p2.next;
+            }
+            
+        }
+        
+        return head;
+    }
+}

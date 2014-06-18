@@ -1,0 +1,89 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode p1 = l1;
+        ListNode p2 = l2;
+        ListNode head = new ListNode(0);
+        ListNode pt = head;
+        ListNode temp;
+        boolean carry = false;
+        
+        while(p1 != null && p2 != null)
+        {
+            int value = p1.val + p2.val;
+            if(carry)
+                value++;
+            temp = new ListNode((value)%10);
+            carry = value > 9? true: false;
+            pt.next = temp;
+            pt = temp;
+            
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+        
+        if(p1 != null)
+        {
+            ListNode run = p1;
+            if(carry)
+            {
+                while(run.next != null && run.val == 9)
+                {
+                    run.val = 0;
+                    run = run.next;
+                }
+                
+                if(run.val != 9)
+                    run.val++;
+                else
+                {
+                    run.val = 0;
+                    run.next = new ListNode(1);
+                }
+            }
+            pt.next = p1;
+        }
+        
+        if(p2 != null)
+        {
+            if(carry)
+            {
+                ListNode run = p2;
+                while(run.next != null && run.val == 9)
+                {
+                    run.val = 0;
+                    run = run.next;
+                }
+                
+                if(run.val != 9)
+                    run.val++;
+                else
+                {
+                    run.val = 0;
+                    run.next = new ListNode(1);
+                }
+            }
+            pt.next = p2;
+        }
+        
+        if(carry && p1 == null && p2 == null)
+        {
+            temp = new ListNode(1);
+            pt.next = temp;
+        }
+        
+        return head.next;
+        
+        
+    }
+}

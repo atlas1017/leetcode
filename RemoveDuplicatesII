@@ -23,8 +23,10 @@ public class Solution {
         itr = temp;
         runner = head;
         
-        while(runner.next != null)
+        while(runner != null)
         {
+            if(runner.next == null)
+                break;
             if(runner.next.val == runner.val)
             {
                 while(runner.next != null)
@@ -35,8 +37,6 @@ public class Solution {
                 }
                 itr.next = runner.next;
                 runner = itr.next;
-                if(runner == null)
-                    break;
             }
             else
             {

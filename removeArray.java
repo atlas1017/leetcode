@@ -16,3 +16,19 @@ public class Solution {
       return count;
     }
 }
+
+
+// the brief version
+public class Solution {
+    public int removeDuplicates(int[] A) {
+      int offset = 0;
+      for(int i = 0; i < A.length-1; i++)
+      {
+          if(A[i+1] == A[i])
+            offset++;
+          else
+            A[i+1-offset] = A[i+1];
+      }
+      return A.length-offset;
+    }
+}

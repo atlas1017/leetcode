@@ -1,0 +1,34 @@
+/**
+ * Definition for singly-linked list with a random pointer.
+ * class RandomListNode {
+ *     int label;
+ *     RandomListNode next, random;
+ *     RandomListNode(int x) { this.label = x; }
+ * };
+ */
+public class Solution {
+    public RandomListNode copyRandomList(RandomListNode head) {
+        
+        HashMap<RandomListNode, RandomListNode> tocopy = new HashMap<RandomListNode, RandomListNode>();
+        RandomListNode pt, temp;
+        pt = head;
+        while(pt != null)
+        {
+            temp = new RandomListNode(pt.label);
+            tocopy.put(pt, temp);
+            pt = pt.next;
+        }
+        
+        pt = head;
+        while(pt != null)
+        {
+            temp = tocopy.get(pt);
+            temp.random = tocopy.get(pt.random);
+            temp.next = tocopy.get(pt.next);
+            pt = pt.next;
+        }
+        
+        return tocopy.get(head);
+        
+    }
+}

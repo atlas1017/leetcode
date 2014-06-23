@@ -32,3 +32,19 @@ public class Solution {
       return A.length-offset;
     }
 }
+
+// even more brief
+public class Solution {
+    public int removeDuplicates(int[] A) {
+        if(A.length < 2)
+            return A.length;
+        
+        int pos = 0;
+        for(int i = 1; i < A.length; i++)
+        {
+            if(A[i] != A[pos])
+                A[++pos] = A[i];
+        }
+        return pos+1;
+    }
+}

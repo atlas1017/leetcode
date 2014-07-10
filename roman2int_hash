@@ -1,0 +1,26 @@
+public class Solution {
+    public int romanToInt(String s) {
+        HashMap<Character, Integer> value = new HashMap<Character, Integer>();
+        value.put('M', 1000);
+        value.put('D', 500);
+        value.put('C', 100);
+        value.put('L', 50);
+        value.put('X', 10);
+        value.put('V', 5);
+        value.put('I', 1);
+        
+        
+        char[] roman = s.toCharArray();
+        int res = 0;
+        int i = 0;
+        for(;i<s.length()-1;i++)
+        {
+            int val = value.get(roman[i]);
+            if(value.get(roman[i+1])>value.get(roman[i]))
+                val = -val;
+            res+=val;
+        }
+        res+=value.get(roman[i]);
+        return res;
+    }
+}

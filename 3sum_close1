@@ -1,0 +1,39 @@
+public class Solution 
+{
+    private int abs(int n)
+    {
+        return n>0?n:-n;
+    }
+    public int threeSumClosest(int[] num, int target) 
+    {
+        Arrays.sort(num);
+        int len = num.length;
+        int p1, p2;
+        int res = num[0]+num[1]+num[2];
+        for(int i=0;i<len-2;i++)
+        {
+            p1=i+1;
+            p2=len-1;
+            while(p2>p1)
+            {
+                int value = num[i]+num[p1]+num[p2];
+                if(value==target)
+                    return target;
+                else
+                    if(value>target)
+                    {
+                        if(abs(value-target)<abs(res-target))
+                            res = value;
+                        p2--;   
+                    }
+                    else
+                    {
+                        if(abs(value-target)<abs(res-target))
+                            res = value;
+                        p1++;
+                    }
+            }
+        }
+        return res;
+    }
+}

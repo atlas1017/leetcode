@@ -1,5 +1,6 @@
 public class Solution {
     public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
+        // before do the sum thing, sort the array
         Arrays.sort(num);
         ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
         int p1, p2;
@@ -22,6 +23,7 @@ public class Solution {
                     one.add(num[p1]);
                     one.add(num[p2]);
                     res.add(one);
+                    // do not forget the p2>p1 coz this might cause an index to be outof bound
                     do{p1++;} while(p2>p1&&num[p1-1]==num[p1]);
                     do{p2--;} while(p2>p1&&num[p2+1]==num[p2]);
                 }

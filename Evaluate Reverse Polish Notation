@@ -1,0 +1,44 @@
+public class Solution {
+    private static boolean isInteger(String s)
+    {
+    try { 
+        Integer.parseInt(s); 
+    } catch(NumberFormatException e) { 
+        return false; 
+    }
+    return true;
+    }
+    public int evalRPN(String[] tokens) {
+        int[] stck = new int[100];
+        int count = 0;
+        int len = tokens.length;
+        
+        for(int i=0; i<len; i++)
+        {
+            if(isInteger(tokens[i]))
+                stck[count++]=Integer.parseInt(tokens[i]);
+            else
+            {
+            switch(tokens[i])
+            {
+                case "+":   count-=2;
+                            stck[count]=stck[count]+stck[count+1];
+                            count++;
+                            break;
+                case "-":   count-=2;
+                            stck[count]=stck[count]-stck[count+1];
+                            count++;
+                            break;
+                case "*":   count-=2;
+                            stck[count]=stck[count]*stck[count+1];
+                            count++;
+                            break;
+                case "/":   count-=2;
+                            stck[count]=stck[count]/stck[count+1];
+                            count++;
+            }
+            }
+        }
+        return stck[0];
+    }
+}

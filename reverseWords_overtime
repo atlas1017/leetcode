@@ -1,0 +1,74 @@
+public class format
+{
+	private static String format(String s)
+	{
+		if(s.equals(""))
+			return "";
+		char[] str = s.toCharArray();
+		int len = str.length;
+		char[] res = new char[len];
+		int count = 0;
+		int i = 0;
+		while(i<len && str[i]==' ')
+			i++;
+		if(i==len)
+			return "";
+		while(i<len)
+		{
+			while(i<len && str[i]!=' ')
+			{
+				res[count++]=str[i];
+				i++;
+			}	
+			while(i<len && str[i]==' ')
+				i++;
+			if(i<len)
+				res[count++]=' ';
+		}
+		char[] result = new char[count];
+		for(int j=0; j<count; j++)
+		{
+			result[j] = res[j];
+			System.out.println(""+res[j]);
+		}		
+		return new String(result);
+	}
+
+    public static String reverseWords(String s) {
+        s = format(s);
+        if(s=="")
+            return "";
+        char[] str = s.toCharArray();
+        StringBuffer res = new StringBuffer();
+        int p1, p2;
+        int count = 0;
+        int len = str.length;
+        int i = len-1;
+        while(i>-1)
+        {
+            p1 = i;
+            while(i>-1 && str[i]!=' ')
+            	i--;
+            p2 = i;
+            res.append(s.substring(p2+1,p1+1));
+            if(p2!=-1)
+            	res.append(" ");
+            i--;
+        }
+        //String aaa = res.toString();
+        System.out.println(aaa.length());
+        return aaa;
+	}
+	public static void main(String[] args) 
+	{
+		//String s = "s";
+		//String str = format(s);
+		//System.out.println(s);
+		//System.out.println(str);
+
+		String s = "  aa  bbb  ccc   dddd   ";
+
+
+		System.out.println(reverseWords(s));
+	}
+}

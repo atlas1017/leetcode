@@ -1,0 +1,29 @@
+public class Solution {
+    public String convert(String s, int nRows) 
+    {
+        if(nRows == 1) return s;
+        char[] str = s.toCharArray();
+        int len = str.length;
+        char[] res = new char[len];
+        int pos = 0;
+        int start = 0;
+        for(int i=0; i<len; i+=2*(nRows-1))
+            res[pos++] = str[i];
+        start++;
+        for(int i=2*(nRows-2); i>0; i-=2)
+        {
+            for(int j=start; j<len;)
+            {
+                res[pos++] = str[j];
+                j+=i;
+                if(j>=len) break;
+                res[pos++] = str[j];
+                j+=2*(nRows-1)-i;
+            }
+            start++;
+        }
+        for(int i=start; i<len; i+=2*(nRows-1))
+            res[pos++] = str[i];
+        return new String(res);
+    }
+}

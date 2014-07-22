@@ -1,0 +1,38 @@
+public class Solution {
+    private static boolean match(char a, char b)
+    {
+        if(b=='.')
+            return true;
+        else
+            return (a==b);
+    }
+    public boolean isMatch(String s, String p) 
+    {
+        // IMPORTANT: Please reset any member data you declared, as
+        // the same Solution instance will be reused for each test case.
+        int slen = s.length();
+        int plen = p.length();
+        boolean[][] dp = new boolean[slen+1][plen+1];
+        for(int i=0; i<slen+1; i++)
+        {
+            for(int j=0; j<plen+1; j++)
+            {
+                dp[i][j] = false;
+                if(i==0 && j==0)
+                    dp[i][j] = true;
+                if(j==0) continue;
+                if(i==0)
+                {
+                    if(p.charAt(j-1)=='*')
+                        dp[i][j] |= dp[i][j-2];
+                    continue;
+                }
+                if(p.charAt(j-1)=='*')
+                    dp[i][j] |= dp[i][j-2] | (dp[i-1][j] && match(s.charAt(i-1), p.charAt(j-2)));
+                else
+                    dp[i][j] |= dp[i-1][j-1] && match(s.charAt(i-1),p.charAt(j-1));
+            }
+        }
+        return dp[slen][plen];
+    }
+}

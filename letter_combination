@@ -1,0 +1,36 @@
+public class Solution {
+    public ArrayList<String> letterCombinations(String digits) 
+    {
+        ArrayList<String> res = new ArrayList<String>();
+        if(digits.equals(""))
+        {
+            res.add("");
+            return res;
+        }
+        char[][] dir = {
+            {'0'},
+            {'1'},
+            {'a','b','c'},
+            {'d','e','f'},
+            {'g','h','i'},
+            {'j','k','l'},
+            {'m','n','o'},
+            {'p','q','r','s'},
+            {'t','u','v'},
+            {'w','x','y','z'}
+        };
+        get(dir, res, "", digits);
+        return res;
+    }
+    public static void get(char[][] dir, ArrayList<String> res, String str, String digits)
+    {
+        if(str.length() == digits.length())
+            res.add(str);
+        else
+        {
+            int num = digits.charAt(str.length()) - '0';
+            for(int i=0; i<dir[num].length; i++)
+                get(dir, res, str+dir[num][i], digits);
+        }
+    }
+}

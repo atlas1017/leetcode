@@ -1,0 +1,19 @@
+public class Solution {
+    public int[] searchRange(int[] A, int target) {
+        // find one and extend in 2 direction
+        int len = A.length;
+        int[] res = {-1, -1};
+        int index = Arrays.binarySearch(A,0,len,target);
+        if(index<0)
+            return res;
+        int end = index;
+        int start = index;
+        while(end<len&&A[end]==target)
+            end++;
+        while(start>-1&&A[start]==target)
+            start--;
+        res[0] = start+1;
+        res[1] = end-1;
+        return res;
+    }
+}

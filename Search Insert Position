@@ -1,0 +1,7 @@
+public class Solution {
+    public int searchInsert(int[] A, int target) {
+        int index = Arrays.binarySearch(A, target);
+        index = index>-1?index:-index-1;
+        return index;
+    }
+}

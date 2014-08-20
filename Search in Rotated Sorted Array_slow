@@ -1,0 +1,59 @@
+public class Solution {
+    public int search(int[] A, int target) 
+    {
+        // it will be like binary search but will also be a little bit different
+        int len = A.length;
+        if(len<100) return bsearch(A, target);
+        // for target < A[0]
+        if(target<A[0])
+        {
+            int pos = len/2;
+            int start = 0;
+            int end = len-1;
+            while(A[pos]>A[len-1]||A[pos]>target)
+            {
+                if(A[pos]>A[len-1])
+                {
+                    start = pos;
+                    pos = start+end/2;
+                }
+                if(A[pos]>target)
+                {
+                    end = pos;
+                    pos = start+end/2;
+                }
+            }
+            return Arrays.binarySearch(A,pos,len,target);
+        }
+        else
+        {
+            int pos = len/2;
+            int start = 0;
+            int end = len-1;
+            while(A[pos]<A[0]||A[pos]<target)
+            {
+                if(A[pos]<A[0])
+                {
+                    end = pos;
+                    pos = start+end/2;
+                }
+                if(A[pos]<target)
+                {
+                    start = pos;
+                    pos = start+end/2;
+                }
+                return Arrays.binarySearch(A,0,pos+1,target);
+            }
+        }
+        return -1;
+    }
+    
+    private int bsearch(int[] A, int target)
+    {
+        int len = A.length;
+        for(int i=0; i<len; i++)
+            if(A[i]==target)
+                return i;
+        return -1;
+    }
+}

@@ -1,0 +1,29 @@
+public class Solution {
+    public int maxSubArray(int[] A) 
+    {
+        int maxnum = max(A);
+        if(maxnum < 0) return maxnum;
+        int sum = 0;
+        int maxsum = 0;
+        for(int i=0; i<A.length; i++)
+        {
+            sum+=A[i];
+            if(sum<0)
+                sum = 0;
+            if(sum>maxsum)
+                maxsum = sum;
+        }
+        return maxsum;
+    }
+    
+    private int max(int[] A)
+    {
+        int max = A[0];
+        for(int i=0; i<A.length; i++)
+        {
+            if(A[i]>max)
+                max = A[i];
+        }
+        return max;
+    }
+}

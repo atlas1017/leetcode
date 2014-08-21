@@ -1,0 +1,23 @@
+public class Solution {
+    public ArrayList<ArrayList<Integer>> generate(int numRows) 
+    {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>> ();
+        if(numRows == 0) return res;
+        ArrayList<Integer> line = new ArrayList<Integer>();
+        line.add(1);
+        res.add(line);
+        for(int i=1; i<numRows; i++)
+        {
+            ArrayList<Integer> newLine = new ArrayList<Integer>();
+            newLine.add(1);
+            for(int j=0; j<line.size()-1; j++)
+            {
+                newLine.add(line.get(j)+line.get(j+1));
+            }
+            newLine.add(1);
+            line = newLine;
+            res.add(line);
+        }
+        return res;
+    }
+}

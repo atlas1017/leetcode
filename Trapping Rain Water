@@ -1,0 +1,86 @@
+public class Solution {
+    public int trap(int[] A) 
+    {
+        if(A.length<3) return 0;
+        int sum = 0;
+        int start = 0;
+        while(start<A.length-1&&A[start+1]>A[start])
+            start++;
+        int end = A.length-1;
+        while(end>0&&A[end-1]>A[end])
+            end--;
+        if(end-start<2) return 0;
+        int maxpos = findmax(A, start, end);
+        if(A[maxpos]<=A[start]&&A[maxpos]<=A[end])
+        {
+            int val = A[start]>A[end]?A[end]:A[start];
+            for(int j=start+1; j<end; j++)
+                sum+=val-A[j];
+        }
+        else
+        {
+            if(A[maxpos]>A[end]&&A[maxpos]<=A[start])
+                sum=right(A, start, maxpos)+right(A, maxpos, end);
+            else
+            {
+                if(A[maxpos]<=A[end]&&A[maxpos]>A[start])
+                    sum=left(A, start, maxpos)+left(A, maxpos, end);
+                else
+                    sum=left(A, start, maxpos)+right(A, maxpos, end);
+            }
+            
+        }
+        return sum;
+    }
+    private int findmax(int[] A, int spos, int epos)
+    {
+        if(epos-spos<2)
+            return spos;
+        int maxpos = spos+1;
+        int pos = spos+1;
+        while(pos<epos)
+        {
+            if(A[pos]>A[maxpos])
+                maxpos = pos;
+            pos++;
+        }
+        return maxpos;
+    }
+    
+    
+    private int left(int[] A, int spos, int epos)
+    {
+        if(epos-spos<2)
+            return 0;
+        int maxpos = findmax(A, spos, epos);
+        int sum = 0;
+        if(A[maxpos]<=A[spos])
+            for(int j=spos+1; j<epos; j++)
+                sum+=A[spos]-A[j];
+        else
+        {
+            for(int j=maxpos; j<epos; j++)
+                sum+=A[maxpos]-A[j];
+            sum+=left(A, spos, maxpos);
+        }
+        return sum;
+    }
+    
+    private int right(int[] A, int spos, int epos)
+    {
+        if(epos-spos<2)
+            return 0;
+        int maxpos = findmax(A, spos, epos);
+        int sum = 0;
+        if(A[maxpos]<=A[epos])
+            for(int j=spos+1; j<epos; j++)
+                sum+=A[epos]-A[j];
+        else
+        {
+            for(int j=spos+1; j<maxpos; j++)
+                sum+=A[maxpos]-A[j];
+            sum+=right(A, maxpos, epos);
+        }
+        return sum;
+    }
+}

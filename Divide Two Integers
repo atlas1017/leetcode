@@ -1,0 +1,25 @@
+public class Solution {
+    public int divide(int dividend, int divisor) 
+    {
+        long pdividend = Math.abs((long)dividend);
+        long pdivisor = Math.abs((long)divisor);
+        
+        int res = 0;
+        while(pdividend>=pdivisor)
+        {
+            int count = 0;
+            while((pdivisor<<count)<=pdividend)
+                count++;
+            pdividend-=pdivisor<<(count-1);
+            res+=1<<(count-1);
+        }
+        
+        if(dividend>=0&&divisor<0 || dividend<=0&&divisor>0)
+            return -res;
+        else
+            return res;
+    }
+}
+
+// there is some danger that the divisor and the dividend can be really large and it I do the Math.abs to an "int",
+// that might cause some overflow things, so before I did this, cast them both to long.

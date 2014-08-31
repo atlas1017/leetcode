@@ -1,0 +1,33 @@
+public class Solution {
+    public int longestValidParentheses(String s) 
+    {
+        int max = 0;
+        Stack<Character> p = new Stack<Character>();
+        Stack<Integer> index = new Stack<Integer>();
+        
+        for(int i=0; i<s.length(); i++)
+        {
+            if(s.charAt(i)=='(')
+            {
+                p.push('(');
+                index.push(i);
+            }
+            else
+            {
+                if(!p.isEmpty()&&p.peek()=='(')
+                {
+                    p.pop();
+                    index.pop();
+                    int distance = p.isEmpty()?i+1:i-index.peek();
+                    max = distance>max?distance:max;
+                }
+                else
+                {
+                    p.push(')');
+                    index.push(i);
+                }
+            }
+        }
+        return max;
+    }
+}

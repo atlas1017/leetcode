@@ -1,6 +1,8 @@
 public class Solution {
     public String multiply(String num1, String num2) 
     {
+        if(num1.equals("0")||num2.equals("0"))
+            return "0";
         // split the string into 5s and multiply them
         ArrayList<Integer> res = new ArrayList<Integer>();
         ArrayList<Integer> mul = new ArrayList<Integer>();
@@ -54,8 +56,8 @@ public class Solution {
         while(p2<l2.size())
         {
             int d = l2.get(p2++);
-            res.add((d2+add)%10);
-            add = (d2+add)/10;
+            res.add((d+add)%10);
+            add = (d+add)/10;
         }
         if(add!=0)
             res.add(add);

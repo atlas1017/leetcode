@@ -1,0 +1,64 @@
+public class Solution {
+    public String multiply(String num1, String num2) 
+    {
+        // split the string into 5s and multiply them
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        ArrayList<Integer> mul = new ArrayList<Integer>();
+        
+        
+        for(int i=num1.length()-1; i>-1; i--)
+        {
+           mul = multi(num1.charAt(i), num2, num1.length()-1-i);
+           res = add(res, mul);
+        }
+        String result = "";
+        for(int i=res.size()-1; i>-1; i--)
+           result+=(char)(res.get(i)+'0');
+        return result;
+    }
+    
+    private ArrayList<Integer> multi(char a, String num, int off)
+    {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        for(int i=0; i<off; i++)
+            res.add(0);
+        int d = a-'0';
+        int add = 0;
+        for(int i=num.length()-1; i>-1; i--)
+        {
+            int d2 = num.charAt(i)-'0';
+            res.add((d2*d+add)%10);
+            add = (d2*d+add)/10;
+        }
+        if(add != 0)
+            res.add(add);
+        return res;
+    }
+    
+    private ArrayList<Integer> add(ArrayList<Integer> l1, ArrayList<Integer> l2)
+    {
+        if(l1.isEmpty())
+            return l2;
+        int p1 = 0;
+        int p2 = 0;
+        int add = 0;
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        int d1=0, d2=0;
+        while(p1<l1.size()&&p2<l2.size())
+        {
+            d1 = l1.get(p1++);
+            d2 = l2.get(p2++);
+            res.add((d1+d2+add)%10);
+            add = (d1+d2+add)/10;
+        }
+        while(p2<l2.size())
+        {
+            int d = l2.get(p2++);
+            res.add((d2+add)%10);
+            add = (d2+add)/10;
+        }
+        if(add!=0)
+            res.add(add);
+        return res;
+    }
+}

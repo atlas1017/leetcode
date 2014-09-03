@@ -1,0 +1,51 @@
+public class Solution {
+    public ArrayList<String[]> solveNQueens(int n) 
+    {
+        ArrayList<String[]> res = new ArrayList<String[]>();
+        int[] index = new int[n];
+        getone(res, index, 0, n);
+        return res;    
+    }
+    
+    private void getone(ArrayList<String[]> res, int[] index, int pos, int n)
+    {
+        if(pos == n)
+            res.add(getstr(index));
+        int[] line = new int[n];
+        for(int i=0; i<pos; i++)
+        {
+            line[index[i]] = 1;
+            int pos1 = index[i]+pos-i;
+            if(pos1>=0&&pos1<n)
+                line[pos1] = 1;
+            int pos2 = index[i]+i-pos;
+            if(pos2>=0&&pos2<n)
+                line[pos2] = 1;
+        }
+        for(int i=0; i<n; i++)
+        {
+            if(line[i]==0)
+            {
+                index[pos] = i;
+                getone(res, index, pos+1, n);
+            }
+        }
+    }
+    
+    private String[] getstr(int[] index)
+        {
+            int n = index.length;
+            String[] str = new String[n];
+            String initial = "";
+            for(int i=0; i<n; i++)
+                initial+='.';
+            for(int i=0; i<n; i++)
+            {
+                StringBuffer temp = new StringBuffer(initial);
+                temp.setCharAt(index[i], 'Q');
+                String one = temp.toString();
+                str[i] = one;
+            }
+            return str;
+        }
+}

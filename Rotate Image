@@ -1,0 +1,18 @@
+public class Solution {
+    public void rotate(int[][] matrix) 
+    {
+        int size = matrix.length;
+        for(int len=size-1; len>=1; len-=2)
+        {
+            for(int off=0; off<len; off++)
+            {
+                int start = (size-1-len)/2;
+                int temp = matrix[start][start+off];
+                matrix[start][start+off] = matrix[start+len-off][start];
+                matrix[start+len-off][start] = matrix[start+len][start+len-off];
+                matrix[start+len][start+len-off] = matrix[start+off][start+len];
+                matrix[start+off][start+len] = temp;
+            }
+        }
+    }
+}

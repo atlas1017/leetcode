@@ -1,0 +1,25 @@
+public class Solution {
+    public boolean canJump(int[] A) 
+    {
+        ArrayList<Integer> zero = new ArrayList<Integer>();
+        for(int i=0; i<A.length-1; i++)
+            if(A[i]==0)
+                zero.add(i);
+        while(!zero.isEmpty())
+        {
+            int last = zero.size()-1;
+            int pos = zero.get(last);
+            for(int i=pos; i>=0; i--)
+            {
+                if(pos-i<A[i])
+                {
+                    zero.remove(last);
+                    break;
+                }
+            }
+            if(zero.contains(pos))
+                return false;
+        }
+        return true;
+    }
+}

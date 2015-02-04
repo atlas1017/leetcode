@@ -16,18 +16,14 @@ public class Solution {
         PriorityQueue<ListNode> q = new PriorityQueue<ListNode>(lists.size(), 
         new Comparator<ListNode>() {
             public int compare(ListNode a, ListNode b) {
-            if(a.val>b.val)
-                return 1;
-            if(a.val == b.val)
-                return 0;
-            else
-                return -1;
+                return a.val-b.val;
         }});
         
         for(ListNode list:lists) {
             if(list != null)
                 q.offer(list);
         }
+        
         ListNode n1 = new ListNode(0);
         ListNode head = n1;
         while(q.size()>0) {
